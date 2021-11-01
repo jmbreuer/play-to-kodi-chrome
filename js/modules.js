@@ -512,31 +512,9 @@ var SoundcloudModule = {
         return 'audio';
     },
     getPluginPath: function(url, getAddOnVersion, callback) {
-        getSoundcloudTrackId(url, function(videoId) {
-            if (videoId != null) {
-                callback('plugin://plugin.audio.soundcloud/play/?audio_id=' + videoId);
-            }
-        });
+        callback('plugin://plugin.audio.soundcloud/play/?url=' + encodeURIComponent(url));
     }
 };
-
-function getSoundcloudTrackId(url, callback) {
-    var soundcloudRegex = 'url=.+tracks%2F([^&]+).+';
-    jQuery.ajax({
-        type: 'POST',
-        url: 'http://soundcloud.com/oembed?url=' + url,
-        success: function (result) {
-            var iframetext = $(result).find("html").text();
-            if (iframetext.indexOf('tracks')) {
-                var trackId = iframetext.match(soundcloudRegex)[1];
-
-                callback(trackId);
-            } else {
-                callback(null);
-            }
-        }
-    });
-}
 
 var StreamCloudModule = {
     canHandleUrl: function(url) {
