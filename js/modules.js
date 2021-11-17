@@ -716,8 +716,8 @@ var VimeoModule = {
         return 'video';
     },
     getPluginPath: function(url, getAddOnVersion, callback) {
-        var videoId = url.match('^(https|http)://(www\.)?vimeo.com[^/]*/(\\d+).*$')[3];
-        callback('plugin://plugin.video.vimeo/play/?video_id=' + videoId);
+        var videoId = url.match('^(https|http)://(www\.)?vimeo.com[^/]*/(\\d[0-9a-f/]+).*$')[3];
+        callback('plugin://plugin.video.vimeo/play/?video_id=' + videoId.replace('/', ':'));
     }
 };
 
